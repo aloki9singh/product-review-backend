@@ -5,7 +5,6 @@ const productRouter = express.Router()
 // API Endpoints
 
 // Add a Product
-
 productRouter.post('/products', async (req, res) => {
     try {
       const product = new Product(req.body);
@@ -37,16 +36,16 @@ productRouter.post('/products', async (req, res) => {
   });
   
   // Update a Product
-  productRouter.put('/products/:id', async (req, res) => {
+  productRouter.patch('/products/:id', async (req, res) => {
     try {
       const product = await Product.findByIdAndUpdate(
         req.params.id,
         req.body,
         { new: true }
       );
-      res.json(product);
+      res.json({ message: "Product Updated", product });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to update the product.' });
+      res.status(500).json({ error: 'Failed to update the product.',error });
     }
   });
   
